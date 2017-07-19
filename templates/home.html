@@ -1,0 +1,89 @@
+<div ng-include="'templates/_nav.html'"></div>
+
+<!--Pesquisa de dados-->
+	<main class="container">
+		<div class="row">
+		<br>
+		<input type="text" ng-model="busca.nome" placeholder="Busca">
+		
+	</div>
+		<div class="row">
+			<!--Criacao da tabela-->
+	<table class="striped">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>E-mail</th>
+				<th>Nota 1</th>
+				<th>Nota 2</th>
+				<th>Nota 3</th>
+				<th>Media</th>
+				<th>Acao</th>
+			</tr>
+		</thead>
+		<tbody>
+		<!--atributos e a funcao ng-repeat para alunos-->
+			<tr ng-repeat="aluno in alunos | filter:busca">
+				<td>{{aluno.nome}}</td>
+				<td>{{aluno.email}}</td>
+				<td>{{aluno.nota1}}</td>
+				<td>{{aluno.nota2}}</td>
+				<td>{{aluno.nota3}}</td>
+				<td>{{aluno.media}}</td>
+				<td>
+					<button ng-click="editarAluno(aluno)" class="btn blue">Editar</button>
+					<button ng-click="apagarAluno(aluno)" class="btn red">Apagar</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+		</div>
+	
+	<div class="row">
+		<!-- Modal Trigger ou botao adicinar -->
+  <a ng-click="abreAddAluno()" class="waves-effect waves-light btn">Adicionar</a>
+
+	</div>
+</main>
+
+
+  <!-- Modal Structure/ janela para lancamento dos dados-->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 ng-if="!editando">Adicionar Novo Aluno</h4>
+      <h4 ng-if="editando">Editar Aluno</h4>
+      <p>Preencha os dados correctamente!</p>
+      <div class="row">
+      	<div class="input-field col m6 s12">
+          <input type="text" ng-model="Aluno.nome" class="validate" placeholder="Nome">
+          
+        </div>
+        <div class="input-field col m6 s12">
+          <input type="text" ng-model="Aluno.email" class="validate" placeholder="E-mail">
+          <!--<label for="last_name">E-mail</label>-->
+        </div> 
+        <div class="input-field col m4 s12">
+          <input type="text" ng-model="Aluno.nota1" class="validate" placeholder="Nota 1">
+          
+        </div>
+        <div class="input-field col m4 s12">
+          <input type="text" ng-model="Aluno.nota2" class="validate" placeholder="Nota 2">
+          
+        </div>
+        <div class="input-field col m4 s12">
+          <input type="text" ng-model="Aluno.nota3" class="validate" placeholder="Nota 3">
+          
+        </div>
+
+      </div>
+    </div>
+    <!--Botoes adicionar e cancelar-->
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+      	
+      	<!--evento que chama a variavel aluno-->
+      	<a ng-if="!editando" ng-click="addAluno(Aluno)" class="waves-effect waves-light btn blue">Adicionar</a>
+      	<a ng-if="editando" ng-click="guardarAluno(Aluno)" class="waves-effect waves-light btn blue">Guardar</a>
+
+    </div>
+  </div>
